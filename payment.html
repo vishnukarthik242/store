@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Payment</title>
+    <style>
+        * { font-family: Arial, sans-serif; }
+        body { background-color: #f8f8f8; padding: 20px; }
+        .container {
+            max-width: 600px;
+            background: white;
+            margin: auto;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+            border-radius: 5px;
+        }
+        h2 { text-align: center; }
+        .payment-methods label { display: block; margin: 10px 0; font-size: 18px; }
+        .card-details { display: none; margin-top: 15px; }
+        input { width: 100%; padding: 10px; margin: 5px 0; border: 1px solid #ccc; border-radius: 5px; }
+        button {
+            width: 100%;
+            background: #28a745;
+            color: white;
+            padding: 12px;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+        button:hover { background: #218838; }
+        .confirmation { text-align: center; margin-top: 20px; font-size: 18px; color: green; display: none; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Choose Payment Method</h2>
+
+        <div class="payment-methods">
+            <label>
+                <input type="radio" name="payment" value="card" onclick="toggleCardForm(true)">
+                Credit/Debit Card
+            </label>
+            <label>
+                <input type="radio" name="payment" value="paypal" onclick="toggleCardForm(false)">
+                PayPal
+            </label>
+            <label>
+                <input type="radio" name="payment" value="cod" onclick="toggleCardForm(false)">
+                Cash on Delivery (COD)
+            </label>
+        </div>
+
+        <div class="card-details" id="card-form">
+            <h3>Enter Card Details</h3>
+            <input type="text" placeholder="Cardholder Name" required>
+            <input type="number" placeholder="Card Number" required>
+            <input type="text" placeholder="Expiry Date (MM/YY)" required>
+            <input type="number" placeholder="CVV" required>
+        </div>
+
+        <button onclick="processPayment()">Confirm Payment</button>
+        <p class="confirmation" id="confirmation-message">Payment Successful! Thank you for your purchase.</p>
+    </div>
+
+    <script>
+        function toggleCardForm(show) {
+            document.getElementById("card-form").style.display = show ? "block" : "none";
+        }
+
+        function processPayment() {
+            let selectedPayment = document.querySelector('input[name="payment"]:checked');
+            if (!selectedPayment) {
+                alert("Please select a payment method.");
+                return;
+            }
+            document.getElementById("confirmation-message").style.display = "block";
+        }
+    </script>
+
+</body>
+</html>
